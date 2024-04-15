@@ -26,7 +26,7 @@ export class EmployeeService {
       });
       return response
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new GraphQLError('Creation problems. Incedent logged')
     }
   }
@@ -39,7 +39,7 @@ export class EmployeeService {
     try {
       return this.model.update(key, input);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new GraphQLError('Update problems. Incedent logged')
     }
   }
@@ -50,7 +50,7 @@ export class EmployeeService {
       await this.model.delete(key);
       return returnResponse;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new GraphQLError('Deletion problems. Incedent logged')
     }
 
@@ -82,7 +82,7 @@ export class EmployeeService {
       await this.model.update(key, updatedEmployee);
       return returnResponse;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new GraphQLError('Deactivation problems. Incedent logged')
     }
 
@@ -114,7 +114,7 @@ export class EmployeeService {
       await this.model.update(key, updatedEmployee);
       return returnResponse;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new GraphQLError('Activation problems. Incedent logged')
     }
   }
@@ -168,7 +168,7 @@ export class EmployeeService {
       }
       return response;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new GraphQLError('Find all problems. Incedent logged')
     }
   }
