@@ -2,7 +2,7 @@ import { Item } from 'nestjs-dynamoose';
 
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Employee, Department, Position, SortOptions } from '../model';
+import { Employee, Department, Position, SortOptions, EmployeeStatus, SortOrder } from '../model';
 import { EmployeeService } from '../service';
 import { EmployeeTestImports } from '../test/test.imports';
 import employeeJson from './data.json';
@@ -28,7 +28,7 @@ describe('Employee Resolver', () => {
                 async (input) => {
                     const { ...data } = {
                         ...input, ...{
-                            dateOfBirth: new Date(input.dateOfBirth), 
+                            dateOfBirth: new Date(input.dateOfBirth),
                             dateOfJoining: new Date(input.dateOfJoining),
                             department: Department[input.department as keyof typeof Department],
                             position: Position[input.position as keyof typeof Position]
@@ -53,8 +53,15 @@ describe('Employee Resolver', () => {
         expect(await resolver.employees()).toHaveLength(4);
         expect(await resolver.employees({
             sortBy: SortOptions.salary,
-            firstName: "Tati"
-        })).toHaveLength(3);
+            sortOrder: SortOrder.descending,
+            firstName: "Iv",
+            lastName: "Ka",
+            filter: {
+                department: Department.Design,
+                position: Position.ScrumMaster,
+                salaryRange: [0, 1000000]
+            }
+        })).toHaveLength(1);
     });
 
     it('update status', async () => {
@@ -64,11 +71,21 @@ describe('Employee Resolver', () => {
         expect(employee).toHaveLength(1);
         expect(employee[0].salary).toBe(455000);
 
-        const updated = await resolver.updateEmployee(employee[0].id, {
+        const updateData = {
             salary: 555555,
-        });
+            firstName: "Ivan",
+            lastName: "Test2",
+            department: Department.AI,
+            position: Position.Manager,
+            dateOfBirth: new Date("2000-01-01"),
+            dateOfJoining: new Date("2000-01-01")
+        }
+
+        const { id, status, ...updated } = await resolver.updateEmployee(employee[0].id, updateData);
+        expect(id).toBe(employee[0].id);
+        expect(status).toBe(EmployeeStatus.Active);
         expect(updated).toBeDefined();
-        expect(updated.salary).toBe(555555);
+        expect(updated).toStrictEqual(updateData)
     });
 
     it('find by id', async () => {
@@ -80,5 +97,38 @@ describe('Employee Resolver', () => {
         const employee = await resolver.employee(employees[0].id);
         expect(employee).toBeDefined();
         expect(employee.id).toBe(employees[0].id);
+        try {
+            await resolver.employee("not-found");
+        } catch (error: any) {
+            expect(error.message).toBe('Employee not found');
+        }
     });
+
+    it('deactivate', async () => {
+        const employees = await resolver.employees({
+            firstName: "Ivan"
+        })
+        expect(employees).toHaveLength(1);
+
+        const response = await resolver.deactivateEmployee(employees[0].id);
+        expect(response).toBeDefined();
+        expect(response.status).toBe(true);
+        const check = await resolver.employee(employees[0].id);
+        expect(check).toBeDefined();
+        expect(check.status).toBe(EmployeeStatus.Deleted);
+    })
+
+    it('activate', async () => {
+        const employees = await resolver.employees({
+            firstName: "Ivan"
+        })
+        expect(employees).toHaveLength(1);
+
+        const response = await resolver.activateEmployee(employees[0].id);
+        expect(response).toBeDefined();
+        expect(response.status).toBe(true);
+        const check = await resolver.employee(employees[0].id);
+        expect(check).toBeDefined();
+        expect(check.status).toBe(EmployeeStatus.Active);
+    })
 });
