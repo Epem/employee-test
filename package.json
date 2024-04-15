@@ -24,7 +24,7 @@
     "ddb:start": "sls dynamodb start",
     "sls:offline": "cross-env NO_COLOR= cross-env IS_DDB_LOCAL=true sls offline",
     "sls:online": "cross-env NO_COLOR= sls offline",
-    "genres": "ts-node genres.ts -- \"src/**/schema.ts\" \"resource/dynamodb.yml\""
+    "genres": "ts-node genres.ts -- \"src/**/*/schema/*.ts\" \"resource/dynamodb.yml\""
   },
   "dependencies": {
     "@apollo/server": "4.10.2",
