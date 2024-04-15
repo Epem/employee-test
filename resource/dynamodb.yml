@@ -1,0 +1,94 @@
+Resources:
+  EmployeeTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Delete
+    Properties:
+      TableName: ${self:service}-${self:provider.stage}-employee-table
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: firstName
+          AttributeType: S
+        - AttributeName: lastName
+          AttributeType: S
+        - AttributeName: dateOfJoining
+          AttributeType: N
+        - AttributeName: dateOfBirth
+          AttributeType: N
+        - AttributeName: salary
+          AttributeType: N
+        - AttributeName: department
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+        - AttributeName: position
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: firstNameIndex
+          KeySchema:
+            - AttributeName: firstName
+              KeyType: HASH
+            - AttributeName: id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: lastNameIndex
+          KeySchema:
+            - AttributeName: lastName
+              KeyType: HASH
+            - AttributeName: id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: dateOfJoiningIndex
+          KeySchema:
+            - AttributeName: dateOfJoining
+              KeyType: HASH
+            - AttributeName: id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: dateOfBirthIndex
+          KeySchema:
+            - AttributeName: dateOfBirth
+              KeyType: HASH
+            - AttributeName: id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: salaryIndex
+          KeySchema:
+            - AttributeName: salary
+              KeyType: HASH
+            - AttributeName: id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: departmentIndex
+          KeySchema:
+            - AttributeName: department
+              KeyType: HASH
+            - AttributeName: id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: positionIndex
+          KeySchema:
+            - AttributeName: position
+              KeyType: HASH
+            - AttributeName: id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: statusIndex
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+            - AttributeName: id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL

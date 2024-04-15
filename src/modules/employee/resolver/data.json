@@ -1,0 +1,42 @@
+[
+  {
+    "firstName": "Tati5",
+    "lastName": "Kaluzha",
+    "salary": 6700200,
+    "position": "ProjectManager",
+    "department": "Operations",
+    "dateOfBirth": "1913-11-27T00:00:00.000Z",
+    "dateOfJoining": "2024-04-13T00:00:00.000Z",
+    "status": "Active"
+  },
+  {
+    "firstName": "Tati4",
+    "lastName": "Kaluzha",
+    "salary": 670000,
+    "position": "ITSupport",
+    "department": "ITSupport",
+    "dateOfBirth": "1984-11-27T00:00:00.000Z",
+    "dateOfJoining": "2024-04-13T00:00:00.000Z",
+    "status": "Active"
+  },
+  {
+    "firstName": "Tati4",
+    "lastName": "Kaluzha",
+    "salary": 523232,
+    "position": "ITSupport",
+    "department": "Design",
+    "dateOfBirth": "1984-11-27T00:00:00.000Z",
+    "dateOfJoining": "2024-04-13T00:00:00.000Z",
+    "status": "Active"
+  },
+  {
+    "firstName": "Ivan",
+    "lastName": "Kaluzha",
+    "salary": 455000,
+    "position": "ScrumMaster",
+    "department": "Design",
+    "dateOfBirth": "1984-11-27T00:00:00.000Z",
+    "dateOfJoining": "2024-04-13T00:00:00.000Z",
+    "status": "Active"
+  }
+]
