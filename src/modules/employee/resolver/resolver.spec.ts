@@ -62,6 +62,27 @@ describe('Employee Resolver', () => {
                 salaryRange: [0, 1000000]
             }
         })).toHaveLength(1);
+        expect(await resolver.employees({
+            sortBy: SortOptions.salary,
+            sortOrder: SortOrder.ascending,
+            firstName: "Iv",
+            lastName: "Ka",
+            filter: {
+                department: Department.Design,
+                position: Position.ScrumMaster,
+                salaryRange: [0, 1000000]
+            }
+        })).toHaveLength(1);
+        expect(await resolver.employees({
+            sortBy: SortOptions.salary,
+            firstName: "Iv",
+            lastName: "Ka",
+            filter: {
+                department: Department.Design,
+                position: Position.ScrumMaster,
+                salaryRange: [0, 1000000]
+            }
+        })).toHaveLength(1);
     });
 
     it('update status', async () => {
@@ -131,4 +152,56 @@ describe('Employee Resolver', () => {
         expect(check).toBeDefined();
         expect(check.status).toBe(EmployeeStatus.Active);
     })
+
+    it('create error', async () => {
+        try {
+            await resolver.createEmployee({
+                firstName: "Ivan",
+                lastName: "Test2",
+                department: Department.AI,
+                position: Position.Manager,
+                dateOfBirth: new Date("2000-01-01"),
+                dateOfJoining: new Date("2000-01-01"),
+                // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+                salary: 1234567890123456789012345678901234567890
+            });
+        } catch (error: any) {
+            expect(error.message).toBe('Creation problems. Incedent logged');
+        }
+    })
+
+    it('update error', async () => {
+        try {
+            await resolver.updateEmployee('not-found', {
+                firstName: "Ivan",
+                lastName: "Test2",
+                department: Department.AI,
+                position: Position.Manager,
+                dateOfBirth: new Date("2000-01-01"),
+                dateOfJoining: new Date("2000-01-01"),
+                // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+                salary: 1234567890123456789012345678901234567890
+            });
+        } catch (error: any) {
+            expect(error.message).toBe('Employee not found');
+        }
+
+        try {
+            const employees = await resolver.employees();
+            await resolver.updateEmployee(employees[0].id, {
+                firstName: "Ivan",
+                lastName: "Test2",
+                department: Department.AI,
+                position: Position.Manager,
+                dateOfBirth: new Date("2000-01-01"),
+                dateOfJoining: new Date("2000-01-01"),
+                // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+                salary: 1234567890123456789012345678901234567890
+            });
+        } catch (error: any) {
+            expect(error.message).toBe('Number 1.2345678901234568e+39 is greater than Number.MAX_SAFE_INTEGER. Use BigInt. ');
+        }
+
+    })
+
 });
