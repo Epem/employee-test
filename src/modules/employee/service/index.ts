@@ -76,7 +76,7 @@ export class EmployeeService {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, ...updatedEmployee } = {
         ...response,
-        status: EmployeeStatus.Active,
+        status: EmployeeStatus.Deleted,
       };
 
       await this.model.update(key, updatedEmployee);
