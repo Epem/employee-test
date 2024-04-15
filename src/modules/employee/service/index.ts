@@ -134,23 +134,23 @@ export class EmployeeService {
       if (filter) {
         const { position, department, salaryRange } = filter;
         if (position) {
-          query = query.using('positionIndex').where('position').eq(position);
+          query = query.using('positionGlobalIndex').where('position').eq(position);
         }
         if (department) {
-          query = query.using('departmentIndex').where('department').eq(department);
+          query = query.using('departmentGlobalIndex').where('department').eq(department);
         }
         if (salaryRange?.length === 2) {
           let [minSalary, maxSalary] = salaryRange;
           minSalary = !isNaN(minSalary) ? minSalary : 0;
           maxSalary = !isNaN(maxSalary) ? maxSalary : Infinity;
-          query = query.using('salaryIndex').where('salary').between(minSalary, maxSalary);
+          query = query.using('salaryGlobalIndex').where('salary').between(minSalary, maxSalary);
         }
       }
       if (firstName) {
-        query = query.using('firstNameIndex').where('firstName').contains(firstName);
+        query = query.using('firstNameGlobalIndex').where('firstName').contains(firstName);
       }
       if (lastName) {
-        query = query.using('lastNameIndex').where('lastName').contains(lastName);
+        query = query.using('lastNameGlobalIndex').where('lastName').contains(lastName);
       }
       const response = await query.exec();
       if (sortBy) {
