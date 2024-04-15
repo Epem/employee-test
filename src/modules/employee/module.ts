@@ -2,7 +2,6 @@ import { DynamooseModule } from 'nestjs-dynamoose';
 
 import { Module } from '@nestjs/common';
 
-// import { EmployeeController } from './controller/controller';
 import { EmployeeResolver } from './resolver/resolver';
 import { EmployeeSchema } from './schema/schema';
 import { EmployeeService } from './service';
@@ -17,6 +16,5 @@ import { EmployeeService } from './service';
     ]),
   ],
   providers: [EmployeeService, EmployeeResolver],
-  // controllers: [EmployeeController],
 })
 export class EmployeeModule {}
