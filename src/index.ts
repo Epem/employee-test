@@ -7,6 +7,7 @@ import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 
 import { AppModule } from './app.module';
+import { GraphQLError } from 'graphql';
 
 let cachedServer: Handler;
 
@@ -16,7 +17,15 @@ const bootstrapServer = async (): Promise<Handler> => {
     AppModule,
     new ExpressAdapter(expressApp),
   );
-  app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: true }));
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true,
+    forbidUnknownValues: true,
+    exceptionFactory: (errors) => {
+      const error = errors.map(e => e.constraints).join(', ');
+      return new GraphQLError(error);
+    }
+  }
+  ));
   app.enableCors();
   await app.init();
   return serverlessExpress({

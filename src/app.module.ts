@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 
 import { EmployeeModule } from './modules/employee/module';
+import { GraphQLError } from 'graphql/error';
 
 @Module({
   imports: [
@@ -13,6 +14,19 @@ import { EmployeeModule } from './modules/employee/module';
       driver: ApolloDriver,
       autoSchemaFile: true,
       playground: true,
+      formatError(error) {
+        const originalError = error.extensions
+          ?.originalError as GraphQLError;
+       
+        if (!originalError) {
+          return {
+            message: error.message,
+          };
+        }
+        return {
+          message: originalError.message,
+        };
+      }
     }),
     DynamooseModule.forRoot({
       local: process.env.IS_DDB_LOCAL === 'true',
