@@ -2,7 +2,7 @@ import { Item } from 'nestjs-dynamoose';
 
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Employee, Department, Position } from '../model';
+import { Employee, Department, Position, SortOptions } from '../model';
 import { EmployeeService } from '../service';
 import { EmployeeTestImports } from '../test/test.imports';
 import employeeJson from './data.json';
@@ -50,8 +50,9 @@ describe('Employee Resolver', () => {
     });
 
     it('findAll', async () => {
-        expect(await resolver.employees()).toHaveLength(3);
+        expect(await resolver.employees()).toHaveLength(4);
         expect(await resolver.employees({
+            sortBy: SortOptions.salary,
             firstName: "Tati"
         })).toHaveLength(3);
     });
