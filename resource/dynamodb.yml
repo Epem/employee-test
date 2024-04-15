@@ -13,11 +13,11 @@ Resources:
         - AttributeName: lastName
           AttributeType: S
         - AttributeName: dateOfJoining
-          AttributeType: N
+          AttributeType: 'N'
         - AttributeName: dateOfBirth
-          AttributeType: N
+          AttributeType: 'N'
         - AttributeName: salary
-          AttributeType: N
+          AttributeType: 'N'
         - AttributeName: department
           AttributeType: S
         - AttributeName: status
@@ -28,7 +28,7 @@ Resources:
         - AttributeName: id
           KeyType: HASH
       GlobalSecondaryIndexes:
-        - IndexName: firstNameIndex
+        - IndexName: firstNameGlobalIndex
           KeySchema:
             - AttributeName: firstName
               KeyType: HASH
@@ -36,7 +36,7 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
-        - IndexName: lastNameIndex
+        - IndexName: lastNameGlobalIndex
           KeySchema:
             - AttributeName: lastName
               KeyType: HASH
@@ -44,7 +44,7 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
-        - IndexName: dateOfJoiningIndex
+        - IndexName: dateOfJoiningGlobalIndex
           KeySchema:
             - AttributeName: dateOfJoining
               KeyType: HASH
@@ -52,7 +52,7 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
-        - IndexName: dateOfBirthIndex
+        - IndexName: dateOfBirthGlobalIndex
           KeySchema:
             - AttributeName: dateOfBirth
               KeyType: HASH
@@ -60,7 +60,7 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
-        - IndexName: salaryIndex
+        - IndexName: salaryGlobalIndex
           KeySchema:
             - AttributeName: salary
               KeyType: HASH
@@ -68,7 +68,7 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
-        - IndexName: departmentIndex
+        - IndexName: departmentGlobalIndex
           KeySchema:
             - AttributeName: department
               KeyType: HASH
@@ -76,17 +76,17 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
-        - IndexName: positionIndex
+        - IndexName: statusGlobalIndex
           KeySchema:
-            - AttributeName: position
+            - AttributeName: status
               KeyType: HASH
             - AttributeName: id
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
-        - IndexName: statusIndex
+        - IndexName: positionGlobalIndex
           KeySchema:
-            - AttributeName: status
+            - AttributeName: position
               KeyType: HASH
             - AttributeName: id
               KeyType: RANGE
