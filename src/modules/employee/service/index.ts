@@ -17,7 +17,6 @@ export class EmployeeService {
   ) {}
 
   async create(input: CreateEmployeeInput) {
-    console.log(input)
     const response = await this.model.create({
       ...input,
       id: uuid.v4(),
@@ -97,6 +96,8 @@ export class EmployeeService {
 
   async findAll(params?: FindEmployee): Promise<Employee[]> {
     let query = this.model.scan()
+    if (typeof params !== 'object') return await query.exec();
+
     const { sortBy, filter, firstName, lastName } = params as FindEmployee;
     if (filter) {
       const { position, department, salaryRange } = filter;
