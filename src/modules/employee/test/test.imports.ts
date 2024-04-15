@@ -4,7 +4,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 
-import { EmployeeSchema } from '../schema/schema';
+import { EmployeeSchema } from '../schema/employee';
 
 export const EmployeeTestImports = [
   ConfigModule.forRoot(),
