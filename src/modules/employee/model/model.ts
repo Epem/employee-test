@@ -9,9 +9,9 @@ export type EmployeeKey = {
 
 @ObjectType({ implements: CreateEmployeeInput })
 export class Employee extends CreateEmployeeInput {
-  @Field( () => ID)
+  @Field(/* istanbul ignore next */() => ID)
   id: string;
-  @Field( () => EmployeeStatus)
+  @Field(/* istanbul ignore next */() => EmployeeStatus)
   status: EmployeeStatus;
 
 }

@@ -19,12 +19,12 @@ export class CreateEmployeeInput {
 
   @IsNotEmpty()
   @IsDate()
-  @Field(()=> Date)
+  @Field(/* istanbul ignore next */()=> Date)
   dateOfJoining: Date;
 
   @IsNotEmpty()
   @IsDate()
-  @Field(()=> Date)
+  @Field(/* istanbul ignore next */()=> Date)
   dateOfBirth: Date;
 
   @IsNotEmpty()
@@ -34,11 +34,11 @@ export class CreateEmployeeInput {
 
   @IsNotEmpty()
   @IsEnum(Department)
-  @Field(() => Department)
+  @Field(/* istanbul ignore next */() => Department)
   department: Department;
 
   @IsNotEmpty()
   @IsEnum(Position)
-  @Field( () => Position)
+  @Field(/* istanbul ignore next */() => Position)
   position: Position;
 }

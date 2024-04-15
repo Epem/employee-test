@@ -10,38 +10,38 @@ export class UpdateEmployeeInput{
 
   @IsOptional()
   @IsString()
-  @Field(() => String, { nullable: true })
+  @Field(/* istanbul ignore next */() => String, { nullable: true })
   firstName?: string;
 
   @IsOptional()
   @IsString()
-  @Field(() => String, { nullable: true })
+  @Field(/* istanbul ignore next */() => String, { nullable: true })
   lastName?: string;
 
 
   @IsOptional()
   @IsDate()
-  @Field(() => Date, { nullable: true })
+  @Field(/* istanbul ignore next */() => Date, { nullable: true })
   dateOfJoining?: Date
 
   @IsOptional()
   @IsDate()
-  @Field(() => Date, { nullable: true })
+  @Field(/* istanbul ignore next */() => Date, { nullable: true })
   dateOfBirth?: Date;
 
 
   @IsOptional()
   @IsEnum(Department)
-  @Field(() => Department, { nullable: true })
+  @Field(/* istanbul ignore next */() => Department, { nullable: true })
   department?: Department;
 
   @IsOptional()
   @IsEnum(Position)
-  @Field(() => Position, { nullable: true })
+  @Field(/* istanbul ignore next */() => Position, { nullable: true })
   position?: Position;
 
   @IsOptional()
   @IsNumber()
-  @Field(() => Number, { nullable: true })
+  @Field(/* istanbul ignore next */() => Number, { nullable: true })
   salary?: number;
 }

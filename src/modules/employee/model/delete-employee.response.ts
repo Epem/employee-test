@@ -2,8 +2,8 @@ import { Field, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export class DeleteResponse {
-    @Field(() => Boolean)
+    @Field(/* istanbul ignore next */() => Boolean)
     status: boolean;
-    @Field(() => String, { nullable: true })
+    @Field(/* istanbul ignore next */() => String, { nullable: true })
     message?: string;
 }

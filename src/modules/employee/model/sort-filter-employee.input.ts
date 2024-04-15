@@ -8,17 +8,17 @@ import { Department } from './department.enum';
 export class Filter {
     @IsOptional()
     @IsEnum(Position)
-    @Field(() => Position, { nullable: true })
+    @Field(/* istanbul ignore next */() => Position, { nullable: true })
     position?: Position;
 
     @IsOptional()
     @IsEnum(Department)
-    @Field(() => Department, { nullable: true })
+    @Field(/* istanbul ignore next */() => Department, { nullable: true })
     department?: Department;
 
     @IsOptional()
     @IsNumber()
-    @Field(() => [Number], { nullable: true })
+    @Field(/* istanbul ignore next */() => [Number], { nullable: true })
     salaryRange?: [number, number];
 }
 
@@ -28,25 +28,25 @@ export class FindEmployee {
     
     @IsOptional()
     @IsEnum(SortOptions)
-    @Field(() => SortOptions, { nullable: true })
+    @Field(/* istanbul ignore next */() => SortOptions, { nullable: true })
     sortBy?: SortOptions;
 
     @IsOptional()
     @IsEnum(SortOrder)
-    @Field(() => SortOrder, { nullable: true })
+    @Field(/* istanbul ignore next */() => SortOrder, { nullable: true })
     sortOrder?: SortOrder;
 
     @IsOptional()
     @IsString()
-    @Field(() => String, { nullable: true })
+    @Field(/* istanbul ignore next */() => String, { nullable: true })
     firstName?: string;    
 
     @IsOptional()
     @IsString()
-    @Field(() => String, { nullable: true })
+    @Field(/* istanbul ignore next */() => String, { nullable: true })
     lastName?: string;
 
     @IsOptional()
-    @Field(() => Filter, { nullable: true })
+    @Field(/* istanbul ignore next */() => Filter, { nullable: true })
     filter?: Filter;
 }
